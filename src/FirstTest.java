@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -28,6 +29,26 @@ public class FirstTest {
         capabilities.setCapability("app","C:\\Users\\valer\\JavaAppiumAutomation\\apks\\org.wikipedia.apk");
 
         driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+
+    }
+
+    @Test
+    public void testCancelSearch() {
+         waitForElementByIdAndClick(
+                 "org.wikipedia:id/search_container",
+                 "Cannot find 'Search Wikipedia' input",
+                 5
+         );
+        waitForElementByIdAndClick(
+                "org.wikipedia:id/search_close_btn",
+                "Cannot find X to cancel search",
+                5
+        );
+        waitForElementNotPresent(
+                "org.wikipedia:id/search_close_btn",
+                "X is still present on the page",
+                5
+        );
 
     }
 
@@ -76,6 +97,33 @@ public class FirstTest {
         WebElement element = waitForElementPresentByXpath(xpath, error_message, timeoutInSeconds);
         element.sendKeys(value);
         return element;
+    }
+
+    private WebElement waitForElementPresentById (String id, String error_message, long timeoutInSeconds) {
+
+        WebDriverWait wait = new WebDriverWait(driver,timeoutInSeconds);
+        wait.withMessage(error_message + "\n");
+        By by = By.id(id);
+        return wait.until(
+                ExpectedConditions.presenceOfElementLocated(by)
+        );
+
+    }
+
+    private WebElement waitForElementByIdAndClick(String id, String error_message, long timeoutInSeconds) {
+        WebElement element = waitForElementPresentById (id, error_message, timeoutInSeconds);
+        element.click();
+        return element;
+    }
+
+    private Boolean waitForElementNotPresent (String id, String error_message, long timeoutInSeconds) {
+
+        WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
+        wait.withMessage(error_message + "\n");
+        By by = By.id(id);
+        return wait.until(
+                ExpectedConditions.invisibilityOfElementLocated(by)
+        );
     }
 
     @After

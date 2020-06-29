@@ -4,36 +4,36 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.URL;
+import java.util.List;
 
 public class FirstTest {
 
     private AppiumDriver driver;
 
     @Before
-    public void setUp() throws Exception{
+    public void setUp() throws Exception {
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
-        capabilities.setCapability("platformName","Android");
-        capabilities.setCapability("deviceName","AndroidTestDevice");
-        capabilities.setCapability("platformVersion","8.0");
-        capabilities.setCapability("automationName","Appium");
-        capabilities.setCapability("appPackage","org.wikipedia");
-        capabilities.setCapability("appActivity",".main.MainActivity");
-        capabilities.setCapability("app","C:\\Users\\valer\\JavaAppiumAutomation\\apks\\org.wikipedia.apk");
+        capabilities.setCapability("platformName", "Android");
+        capabilities.setCapability("deviceName", "AndroidTestDevice");
+        capabilities.setCapability("platformVersion", "8.0");
+        capabilities.setCapability("automationName", "Appium");
+        capabilities.setCapability("appPackage", "org.wikipedia");
+        capabilities.setCapability("appActivity", ".main.MainActivity");
+        capabilities.setCapability("app", "C:\\Users\\valer\\JavaAppiumAutomation\\apks\\org.wikipedia.apk");
 
         driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 
     }
 
     @Test
-    public void testCompareArticleTitle (){
+    public void testCompareArticleTitle() {
         waitForElementAndClick(
                 By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
                 "Cannot find Search Wikipedia input",
@@ -68,6 +68,28 @@ public class FirstTest {
         );
     }
 
+    @Test
+    public void testCompareText() {
+    waitForElementAndClick(
+            By.id("org.wikipedia:id/search_container"),
+                 "Cannot find 'Search Wikipedia' input",
+                         5
+                         );
+
+    waitForElementAndSendKeys(
+            By.xpath("//*[contains(@text, 'Search…')]"),
+                "Java",
+                        "Cannot find search input",
+                        15
+                        );
+
+    assertElementHasText(
+            By.id("org.wikipedia:id/search_src_text"),
+                "Java",
+                        "You see the unexpected value of the text attribute"
+                        );
+
+    }
 
     @Test
     public void testCancelSearch() {
@@ -163,6 +185,16 @@ public class FirstTest {
         WebElement element = waitForElementPresent(by, error_message, timeoutInSeconds);
         element.clear();
         return element;
+    }
+
+    private Boolean assertElementHasText(By by, String expected_text, String error_message) {
+
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.withMessage(error_message + "\n");
+
+        return wait.until(
+                ExpectedConditions.textToBePresentInElementLocated(by,expected_text)
+        );
     }
 
     @After

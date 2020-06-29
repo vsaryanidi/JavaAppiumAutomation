@@ -33,6 +33,41 @@ public class FirstTest {
 
     }
 
+
+    @Test
+    public void testCheckSearchingWordContainsInEachResult() {
+
+        String search_word = "Java";
+
+        waitForElementAndClick(
+                By.id("org.wikipedia:id/search_container"),
+                "Cannot find 'Search Wikipedia' input",
+                5
+        );
+
+        waitForElementAndSendKeys(
+                By.xpath("//*[contains(@text, 'Search…')]"),
+                search_word,
+                "Cannot find search input",
+                15
+        );
+
+        WebElement search_results = waitForElementPresent(
+                By.xpath("//*[@resource-id='org.wikipedia:id/search_results_list']//*[@resource-id='org.wikipedia:id/page_list_item_title']"),
+                "Nothing found on request",
+                5
+        );
+
+        List<WebElement> results_list = driver.findElements(By.xpath("//*[@resource-id='org.wikipedia:id/search_results_list']//*[@resource-id='org.wikipedia:id/page_list_item_title']"));
+
+        List<String> textValue = new ArrayList<>();
+        for (WebElement element : results_list)
+            textValue.add(element.getText());
+
+        Assert.assertTrue("Results list does not contain word '" + search_word + "'", textValue.contains(search_word));
+
+    }
+
     @Test
     public void testCheckSeveralResultsAndCancelSearch() {
         waitForElementAndClick(
@@ -56,6 +91,12 @@ public class FirstTest {
 
         List<WebElement> results_list = driver.findElements(By.xpath("//*[@resource-id='org.wikipedia:id/search_results_list']//*[@resource-id='org.wikipedia:id/page_list_item_title']"));
         Assert.assertTrue(results_list.size() > 1);
+
+        List<String> stringName = new ArrayList<>();
+        for (WebElement name : results_list)
+            stringName.add(name.getText());
+
+        Assert.assertTrue("Results list not contains 'Java'", stringName.contains("Java"));
 
 
         waitForElementAndClear(

@@ -35,6 +35,36 @@ public class FirstTest {
     }
 
     @Test
+    public void testCheckArticleTitlePresent() {
+
+        waitForElementAndClick(
+                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+                "Cannot find Search Wikipedia input",
+                5
+        );
+
+        String search_line = "Java";
+
+        waitForElementAndSendKeys(
+                By.xpath("//*[contains(@text, 'Search…')]"),
+                search_line,
+                "Cannot find search input",
+                15
+        );
+
+        waitForElementAndClick(
+                By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='Object-oriented programming language']"),
+                "Cannot find 'Object-oriented programming language' topic searching by 'Java'",
+                5
+        );
+
+        assertElementPresent(
+                By.id("org.wikipedia:id/view_page_title_text"),
+                "Cannot find article title"
+        );
+    }
+
+        @Test
     public void testSaveTwoArticleToMyListAndDeleteOneOfThem() {
         waitForElementAndClick(
                 By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
@@ -276,6 +306,7 @@ public class FirstTest {
         );
 
         driver.rotate(ScreenOrientation.LANDSCAPE);
+
 
         String title_after_rotation = waitForElementAndGetAttribute(
                 By.id("org.wikipedia:id/view_page_title_text"),
@@ -833,6 +864,12 @@ public class FirstTest {
     WebElement element = waitForElementPresent(by, error_message, timeInSeconds);
 
     return element.getAttribute(attribute);
+    }
+
+    private void assertElementPresent (By by, String error_message) {
+        WebElement element = driver.findElement(by);
+
+        Assert.assertTrue("An element '" + element.toString() + error_message + "' not present", element.isDisplayed());
     }
 
     @After

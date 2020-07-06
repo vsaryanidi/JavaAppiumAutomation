@@ -874,6 +874,7 @@ public class FirstTest {
 
     @After
     public void tearDown() {
+        driver.rotate(ScreenOrientation.PORTRAIT);
         driver.quit();
     }
 }

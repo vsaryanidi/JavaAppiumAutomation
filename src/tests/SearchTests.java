@@ -38,6 +38,7 @@ public class SearchTests extends CoreTestCase {
     public void testCancelSearch() {
 
         SearchPageObject SearchPageObject = new SearchPageObject(driver);
+
         SearchPageObject.initSearchInput();
         SearchPageObject.clickCancelSearch();
         SearchPageObject.waitForCancelButtonToDisappear();
@@ -47,11 +48,56 @@ public class SearchTests extends CoreTestCase {
     public void testSearch() {
 
         SearchPageObject SearchPageObject = new SearchPageObject(driver);
+
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
         SearchPageObject.waitForSearchResult("Object-oriented programming language");
     }
 
+    @Test
+    public void testCompareText() {
+
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("Java");
+        SearchPageObject.assertTextInSearchLine("Java");
+    }
+
+    @Test
+    public void testCheckSeveralResultsAndCancelSearch() {
+
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("Java");
+        int amount_of_search_results = SearchPageObject.getAmountOfFoundArticles();
+        assertTrue(amount_of_search_results > 1);
+        SearchPageObject.clearTextFromSearchLine();
+        SearchPageObject.clickCancelSearch();
+        SearchPageObject.waitForCancelButtonToDisappear();
+    }
+
+    @Test
+    public void testCheckSearchingWordContainsInEachResult() {
+
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("Java");
+        SearchPageObject.waitForSearchResult();
+        SearchPageObject.checkContainTextInSearchResult("Java");
+    }
+
+    @Test
+    public void testSaveTwoArticleToMyListAndDeleteOneOfThem() {
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("Java");
+        SearchPageObject.waitForSearchResult();
+        SearchPageObject.checkContainTextInSearchResult("Java");
+    }
 
 
 }

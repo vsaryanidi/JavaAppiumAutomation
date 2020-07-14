@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainPageObject {
@@ -146,8 +147,21 @@ public class MainPageObject {
     }
 
     public void assertElementPresent(By by, String error_message) {
+
+        System.out.println(by);
         WebElement element = driver.findElement(by);
 
         Assert.assertTrue("An element '" + element.toString() + error_message + "' not present", element.isDisplayed());
+    }
+
+    public void getElements(By by, String search_word) {
+
+        List<WebElement> results_list = driver.findElements(by);
+
+        List<String> textValue = new ArrayList<>();
+        for (WebElement element : results_list)
+            textValue.add(element.getText());
+
+        Assert.assertTrue("Results list does not contain word '" + search_word + "'", textValue.contains(search_word));
     }
 }

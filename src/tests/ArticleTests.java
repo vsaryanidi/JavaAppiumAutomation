@@ -41,4 +41,17 @@ public class ArticleTests extends CoreTestCase {
         ArticlePageObject.swipeToFooter();
 
     }
+
+    @Test
+    public void testCheckArticleTitlePresent() {
+
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("Java");
+        SearchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
+
+        ArticlePageObject ArticlePageObject = new ArticlePageObject(driver);
+        ArticlePageObject.assertArticleTitlePresent();
+    }
 }

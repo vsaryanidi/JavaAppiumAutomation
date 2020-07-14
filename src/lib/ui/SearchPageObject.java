@@ -11,7 +11,9 @@ public class SearchPageObject extends MainPageObject{
             SEARCH_CANCEL_BUTTON = "org.wikipedia:id/search_close_btn",
             SEARCH_RESULT_BY_SUBSTRING_TPL = "//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='{SUBSTRING}']",
             SEARCH_RESULT_ELEMENT = "//*[@resource-id='org.wikipedia:id/search_results_list']/*[@resource-id='org.wikipedia:id/page_list_item_container']",
-            SEARCH_EMPTY_RESULT_ELEMENT = "//*[@text='No results found']"
+            SEARCH_EMPTY_RESULT_ELEMENT = "//*[@text='No results found']",
+            SEARCH_LINE = "org.wikipedia:id/search_src_text",
+            SEARCH_LIST_ITEM_TITLE = "//*[@resource-id='org.wikipedia:id/search_results_list']//*[@resource-id='org.wikipedia:id/page_list_item_title']"
     ;
 
     public SearchPageObject (AppiumDriver driver){
@@ -46,12 +48,16 @@ public class SearchPageObject extends MainPageObject{
 
     public void typeSearchLine(String search_line) {
 
-        this.waitForElementAndSendKeys(By.xpath(SEARCH_INPUT), search_line, "Cannot find and type into search input", 5);
+        this.waitForElementAndSendKeys(By.xpath(SEARCH_INPUT), search_line, "Cannot find and type into search input", 10);
     }
 
     public void waitForSearchResult (String substring) {
         String search_result_xpath = getResultSearchElement(substring);
         this.waitForElementPresent(By.xpath(search_result_xpath),"Cannot find search result with substring " + substring);
+    }
+
+    public void waitForSearchResult () {
+        this.waitForElementPresent(By.xpath(SEARCH_RESULT_ELEMENT),"Cannot find search result with substring " + SEARCH_RESULT_ELEMENT);
     }
 
     public void clickByArticleWithSubstring (String substring) {
@@ -83,5 +89,31 @@ public class SearchPageObject extends MainPageObject{
                 By.xpath(SEARCH_RESULT_ELEMENT),
                 "We supposed not to find any results"
         );
+    }
+
+    public void assertTextInSearchLine (String search_text) {
+
+        this.assertElementHasText(
+                By.id(SEARCH_LINE),
+                search_text,
+                "You see the unexpected value of the text attribute"
+        );
+    }
+
+    public void clearTextFromSearchLine () {
+
+        this.waitForElementAndClear(
+                By.id(SEARCH_LINE),
+                "You see the unexpected value of the text attribute",
+                5
+        );
+    }
+
+    public void checkContainTextInSearchResult (String search_word) {
+
+        this.getElements(
+                By.xpath(SEARCH_LIST_ITEM_TITLE),
+                search_word);
+
     }
 }

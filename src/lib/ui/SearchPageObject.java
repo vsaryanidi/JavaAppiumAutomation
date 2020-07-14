@@ -13,8 +13,9 @@ public class SearchPageObject extends MainPageObject{
             SEARCH_RESULT_ELEMENT = "//*[@resource-id='org.wikipedia:id/search_results_list']/*[@resource-id='org.wikipedia:id/page_list_item_container']",
             SEARCH_EMPTY_RESULT_ELEMENT = "//*[@text='No results found']",
             SEARCH_LINE = "org.wikipedia:id/search_src_text",
-            SEARCH_LIST_ITEM_TITLE = "//*[@resource-id='org.wikipedia:id/search_results_list']//*[@resource-id='org.wikipedia:id/page_list_item_title']"
-    ;
+            SEARCH_LIST_ITEM_TITLE = "//*[@resource-id='org.wikipedia:id/search_results_list']//*[@resource-id='org.wikipedia:id/page_list_item_title']",
+            SEARCH_BY_NAME_AND_DESCRIPTION_TPL = "//*[@resource-id='org.wikipedia:id/search_results_list']/*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='{TITLE}']/following::android.widget.TextView[@text='{DESCRIPTION}']"
+                    ;
 
     public SearchPageObject (AppiumDriver driver){
 
@@ -22,10 +23,17 @@ public class SearchPageObject extends MainPageObject{
     }
 
     /*TEMPLATES METHODS*/
+
     private static String getResultSearchElement (String substring) {
 
         return SEARCH_RESULT_BY_SUBSTRING_TPL.replace("{SUBSTRING}", substring);
     }
+
+    public static String getTitleAndDescriptionOfElement (String title, String description) {
+
+        return SEARCH_BY_NAME_AND_DESCRIPTION_TPL.replace("{TITLE}", title).replace("{DESCRIPTION}", description);
+    }
+
     /*TEMPLATES METHODS*/
 
     public void initSearchInput() {
@@ -114,6 +122,13 @@ public class SearchPageObject extends MainPageObject{
         this.getElements(
                 By.xpath(SEARCH_LIST_ITEM_TITLE),
                 search_word);
+
+    }
+
+    public void waitForElementByTitleAndDescription(String title, String description) {
+
+        String xpath_with_title_and_description = getTitleAndDescriptionOfElement(title,description);
+        this.waitForElementPresent(By.xpath(xpath_with_title_and_description),"Cannot find result with title " + title + " and description " + description, 10);
 
     }
 }

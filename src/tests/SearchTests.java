@@ -3,6 +3,10 @@ package tests;
 import lib.CoreTestCase;
 import lib.ui.SearchPageObject;
 import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class SearchTests extends CoreTestCase {
 
@@ -99,5 +103,27 @@ public class SearchTests extends CoreTestCase {
         SearchPageObject.checkContainTextInSearchResult("Java");
     }
 
+    @Test
+    public void testCheckTitleAndDescriptionOfArticle() {
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("Java");
+        SearchPageObject.waitForElementByTitleAndDescription("Java (programming language)","Object-oriented programming language");
+
+    }
+
+    @Test
+    public void testCheckAmountArticlesInSearchResult() {
+
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("Java");
+        SearchPageObject.waitForSearchResult();
+        int amount_of_search_results = SearchPageObject.getAmountOfFoundArticles();
+        assertTrue(amount_of_search_results >= 3);
+
+    }
 
 }

@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 
 public class MyListsTests extends CoreTestCase {
+
     @Test
     public void testSaveFirstArticleToMyList() {
 

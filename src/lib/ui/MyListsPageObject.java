@@ -46,7 +46,7 @@ public class MyListsPageObject extends MainPageObject{
 
     public void waitForArticleToDisappearByTitle (String article_title) {
 
-        this.waitForArticleToAppearByTitle(article_title);
+        /*this.waitForArticleToAppearByTitle(article_title);*/
         String article_title_xpath = getSaveArticleXpathByTitle(article_title);
 
         this.waitForElementNotPresent(
@@ -63,7 +63,6 @@ public class MyListsPageObject extends MainPageObject{
                 By.xpath(article_xpath),
                 "Cannot find save article " + article_title
         );
-
         this.waitForArticleToDisappearByTitle(article_title);
     }
 

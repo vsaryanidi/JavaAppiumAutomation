@@ -1,6 +1,7 @@
 package tests;
 
 import lib.CoreTestCase;
+import lib.Platform;
 import lib.ui.WelcomePageObject;
 import org.junit.Test;
 
@@ -9,7 +10,7 @@ public class GetStartedTests extends CoreTestCase {
     @Test
     public void testPassTroughWelcome() {
 
-        if (this.Platform.isAndroid()) {
+        if (Platform.getInstance().isAndroid()) {
             return;
         }
 

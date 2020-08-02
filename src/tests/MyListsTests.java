@@ -5,6 +5,7 @@ import lib.ui.ArticlePageObject;
 import lib.ui.MyListsPageObject;
 import lib.ui.NavigationUI;
 import lib.ui.SearchPageObject;
+import lib.ui.factories.SearchPageObjectFactory;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
@@ -13,7 +14,7 @@ public class MyListsTests extends CoreTestCase {
     @Test
     public void testSaveFirstArticleToMyList() {
 
-        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+        SearchPageObject SearchPageObject = new SearchPageObjectFactory.get(driver);
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
@@ -41,7 +42,7 @@ public class MyListsTests extends CoreTestCase {
     @Test
     public void testSaveTwoArticleToMyListAndDeleteOneOfThem() {
 
-        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+        SearchPageObject SearchPageObject = new SearchPageObjectFactory.get(driver);
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");

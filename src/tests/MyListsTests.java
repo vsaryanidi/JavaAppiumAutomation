@@ -14,7 +14,7 @@ public class MyListsTests extends CoreTestCase {
     @Test
     public void testSaveFirstArticleToMyList() {
 
-        SearchPageObject SearchPageObject = new SearchPageObjectFactory.get(driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
@@ -42,7 +42,7 @@ public class MyListsTests extends CoreTestCase {
     @Test
     public void testSaveTwoArticleToMyListAndDeleteOneOfThem() {
 
-        SearchPageObject SearchPageObject = new SearchPageObjectFactory.get(driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");

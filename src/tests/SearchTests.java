@@ -4,17 +4,13 @@ import lib.CoreTestCase;
 import lib.ui.SearchPageObject;
 import lib.ui.factories.SearchPageObjectFactory;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-
-import java.util.List;
 
 public class SearchTests extends CoreTestCase {
 
     @Test
     public void testAmountOfEmptySearch() {
 
-        SearchPageObject SearchPageObject = new SearchPageObjectFactory.get(driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
         SearchPageObject.initSearchInput();
         String search_line = "zxcvbdegyegryer";
@@ -27,7 +23,7 @@ public class SearchTests extends CoreTestCase {
     @Test
     public void testAmountOfNotEmptySearch() {
 
-        SearchPageObject SearchPageObject = new SearchPageObjectFactory.get(driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
         SearchPageObject.initSearchInput();
         String search_line = "Linkin Park Discography";
@@ -42,7 +38,7 @@ public class SearchTests extends CoreTestCase {
     @Test
     public void testCancelSearch() {
 
-        SearchPageObject SearchPageObject = new SearchPageObjectFactory.get(driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
         SearchPageObject.initSearchInput();
         SearchPageObject.clickCancelSearch();
@@ -52,7 +48,7 @@ public class SearchTests extends CoreTestCase {
     @Test
     public void testSearch() {
 
-        SearchPageObject SearchPageObject = new SearchPageObjectFactory.get(driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
@@ -62,7 +58,7 @@ public class SearchTests extends CoreTestCase {
     @Test
     public void testCompareText() {
 
-        SearchPageObject SearchPageObject = new SearchPageObjectFactory.get(driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
@@ -72,7 +68,7 @@ public class SearchTests extends CoreTestCase {
     @Test
     public void testCheckSeveralResultsAndCancelSearch() {
 
-        SearchPageObject SearchPageObject = new SearchPageObjectFactory.get(driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
@@ -86,7 +82,7 @@ public class SearchTests extends CoreTestCase {
     @Test
     public void testCheckSearchingWordContainsInEachResult() {
 
-        SearchPageObject SearchPageObject = new SearchPageObjectFactory.get(driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
@@ -96,7 +92,7 @@ public class SearchTests extends CoreTestCase {
 
     @Test
     public void testSaveTwoArticleToMyListAndDeleteOneOfThem() {
-        SearchPageObject SearchPageObject = new SearchPageObjectFactory.get(driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
@@ -106,7 +102,7 @@ public class SearchTests extends CoreTestCase {
 
     @Test
     public void testCheckTitleAndDescriptionOfArticle() {
-        SearchPageObject SearchPageObject = new SearchPageObjectFactory.get(driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
@@ -117,7 +113,7 @@ public class SearchTests extends CoreTestCase {
     @Test
     public void testCheckAmountArticlesInSearchResult() {
 
-        SearchPageObject SearchPageObject = new SearchPageObjectFactory.get(driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");

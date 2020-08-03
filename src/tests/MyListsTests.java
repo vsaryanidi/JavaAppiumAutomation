@@ -16,6 +16,7 @@ import org.openqa.selenium.By;
 public class MyListsTests extends CoreTestCase {
 
     private static final String name_of_folder = "Learning programming";
+    
     @Test
     public void testSaveFirstArticleToMyList() {
 
@@ -38,14 +39,25 @@ public class MyListsTests extends CoreTestCase {
 
         ArticlePageObject.closeArticle();
 
+        if (Platform.getInstance().isIOS()) {
+            SearchPageObject.clickCancelSearch();
+        }
+
         NavigationUI NavigationUI = NavigationUIFactory.get(driver);
         NavigationUI.clickMyLists();
 
         MyListsPageObject MyListsPageObject = MyListsPageObjectFactory.get(driver);
+
+        if (Platform.getInstance().isIOS()) {
+            MyListsPageObject.closeSynhYourSavedArticle();
+        }
+
+
         if (Platform.getInstance().isAndroid()) {
             MyListsPageObject.openFolderByName(name_of_folder);
         }
             MyListsPageObject.swipeByArticleTDelete(article_title);
+
 
 
 

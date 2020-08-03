@@ -8,7 +8,8 @@ abstract public class MyListsPageObject extends MainPageObject{
 
     protected static String
             FOLDER_BY_NAME_TPL,
-            ARTICLE_BY_TITLE_TPL;
+            ARTICLE_BY_TITLE_TPL,
+            CLOSE_BUTTON;
 
     private static String getFolderXpathByName (String name_of_folder) {
         return FOLDER_BY_NAME_TPL.replace("{FOLDER_NAME}", name_of_folder);
@@ -67,6 +68,11 @@ abstract public class MyListsPageObject extends MainPageObject{
             this.clickElementToTheRightUpperCorner(article_xpath, "Cannot find saved article");
         }
         this.waitForArticleToDisappearByTitle(article_title);
+    }
+
+    public void closeSynhYourSavedArticle () {
+
+        this.waitForElementAndClick(CLOSE_BUTTON, "Cannot find X button", 10);
     }
 
 }

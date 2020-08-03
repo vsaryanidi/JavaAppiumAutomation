@@ -9,7 +9,7 @@ abstract public class ArticlePageObject extends MainPageObject{
 
     protected static String
                 TITLE,
-                SECOND_TITLE,
+                ARTICLE_DESCRIPTION,
                 FOOTER_ELEMENT,
                 OPTIONS_BUTTON,
                 OPTIONS_ADD_MY_LIST_BUTTON,
@@ -35,8 +35,8 @@ abstract public class ArticlePageObject extends MainPageObject{
         return this.waitForElementPresent(TITLE,"Cannot find article title on page!", 15);
     }
 
-    public WebElement waitForSecondTitleElement() {
-        return this.waitForElementPresent(SECOND_TITLE,"Cannot find article title on page!", 15);
+    public WebElement waitForArticleDescriptionElement() {
+        return this.waitForElementPresent(ARTICLE_DESCRIPTION,"Cannot find article description on page!", 15);
     }
 
     public String getArticleTitle() {
@@ -50,10 +50,10 @@ abstract public class ArticlePageObject extends MainPageObject{
     }
 
 
-    public String getSecondArticleTitle() {
-        WebElement title_element = waitForSecondTitleElement();
+    public String getArticleDescription() {
+        WebElement article_description_element = waitForArticleDescriptionElement();
 
-        return title_element.getAttribute("name");
+        return article_description_element.getAttribute("name");
 
     }
 

@@ -92,9 +92,9 @@ public class MyListsTests extends CoreTestCase {
 
         SearchPageObject.clickByArticleWithSubstring("Island of Indonesia");
 
-        ArticlePageObject.waitForSecondTitleElement();
+        ArticlePageObject.waitForArticleDescriptionElement();
 
-        String article_second_title = ArticlePageObject.getSecondArticleTitle();
+        String article_description = ArticlePageObject.getArticleDescription();
 
         if (Platform.getInstance().isAndroid()) {
             ArticlePageObject.addArticleToMyExistingList(name_of_folder);
@@ -114,13 +114,13 @@ public class MyListsTests extends CoreTestCase {
 
         if (Platform.getInstance().isAndroid()) {
             MyListsPageObject.openFolderByName(name_of_folder);
-            System.out.println(driver.findElements(By.xpath(article_second_title)));
+            System.out.println(driver.findElements(By.xpath(article_description)));
 
         } else {
             MyListsPageObject.closeSynhYourSavedArticle();
         }
 
-        MyListsPageObject.swipeByArticleTDelete(article_second_title);
+        MyListsPageObject.swipeByArticleTDelete(article_description);
         MyListsPageObject.waitForArticleToAppearByTitle(article_title);
 
 

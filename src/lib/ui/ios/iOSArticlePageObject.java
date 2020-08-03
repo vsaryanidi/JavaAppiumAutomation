@@ -7,6 +7,7 @@ public class iOSArticlePageObject extends ArticlePageObject {
 
     static {
         TITLE = "id:Java (programming language)";
+        SECOND_TITLE = "id:Island of Indonesia";
         FOOTER_ELEMENT = "id:View article in browser";
         OPTIONS_ADD_MY_LIST_BUTTON = "id:Save for later";
         CLOSE_ARTICLE_BUTTON = "id:Back";

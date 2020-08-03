@@ -9,6 +9,7 @@ abstract public class ArticlePageObject extends MainPageObject{
 
     protected static String
                 TITLE,
+                SECOND_TITLE,
                 FOOTER_ELEMENT,
                 OPTIONS_BUTTON,
                 OPTIONS_ADD_MY_LIST_BUTTON,
@@ -34,6 +35,10 @@ abstract public class ArticlePageObject extends MainPageObject{
         return this.waitForElementPresent(TITLE,"Cannot find article title on page!", 15);
     }
 
+    public WebElement waitForSecondTitleElement() {
+        return this.waitForElementPresent(SECOND_TITLE,"Cannot find article title on page!", 15);
+    }
+
     public String getArticleTitle() {
         WebElement title_element = waitForTitleElement();
         if (Platform.getInstance().isAndroid()) {
@@ -41,6 +46,14 @@ abstract public class ArticlePageObject extends MainPageObject{
         } else {
             return title_element.getAttribute("name");
         }
+
+    }
+
+
+    public String getSecondArticleTitle() {
+        WebElement title_element = waitForSecondTitleElement();
+
+        return title_element.getAttribute("name");
 
     }
 

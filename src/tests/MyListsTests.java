@@ -16,7 +16,7 @@ import org.openqa.selenium.By;
 public class MyListsTests extends CoreTestCase {
 
     private static final String name_of_folder = "Learning programming";
-    
+
     @Test
     public void testSaveFirstArticleToMyList() {
 
@@ -59,8 +59,6 @@ public class MyListsTests extends CoreTestCase {
             MyListsPageObject.swipeByArticleTDelete(article_title);
 
 
-
-
     }
 
 
@@ -77,30 +75,55 @@ public class MyListsTests extends CoreTestCase {
         ArticlePageObject.waitForTitleElement();
 
         String article_title = ArticlePageObject.getArticleTitle();
-        String name_of_folder = "Learning programming";
 
-        ArticlePageObject.addArticleToMyList(name_of_folder);
+        if (Platform.getInstance().isAndroid()) {
+            ArticlePageObject.addArticleToMyList(name_of_folder);
+        } else {
+            ArticlePageObject.addArticleToMySaved();
+        }
+
         ArticlePageObject.closeArticle();
 
-        SearchPageObject.initSearchInput();
-        SearchPageObject.typeSearchLine("Java");
-        SearchPageObject.clickByArticleWithSubstring("Programming language");
+        if (Platform.getInstance().isAndroid()) {
+            SearchPageObject.initSearchInput();
 
-        ArticlePageObject.waitForTitleElement();
+            SearchPageObject.typeSearchLine("Java");
+        }
 
-        String article_second_title = ArticlePageObject.getArticleTitle();
+        SearchPageObject.clickByArticleWithSubstring("Island of Indonesia");
 
-        ArticlePageObject.addArticleToMyExistingList(name_of_folder);
+        ArticlePageObject.waitForSecondTitleElement();
+
+        String article_second_title = ArticlePageObject.getSecondArticleTitle();
+
+        if (Platform.getInstance().isAndroid()) {
+            ArticlePageObject.addArticleToMyExistingList(name_of_folder);
+        } else {
+            ArticlePageObject.addArticleToMySaved();
+        }
+
         ArticlePageObject.closeArticle();
+
+        if (Platform.getInstance().isIOS()) {
+            SearchPageObject.clickCancelSearch();
+        }
 
         NavigationUI NavigationUI = NavigationUIFactory.get(driver);
         NavigationUI.clickMyLists();
-
         MyListsPageObject MyListsPageObject = MyListsPageObjectFactory.get(driver);
-        MyListsPageObject.openFolderByName(name_of_folder);
-        System.out.println(driver.findElements(By.xpath(article_second_title)));
+
+        if (Platform.getInstance().isAndroid()) {
+            MyListsPageObject.openFolderByName(name_of_folder);
+            System.out.println(driver.findElements(By.xpath(article_second_title)));
+
+        } else {
+            MyListsPageObject.closeSynhYourSavedArticle();
+        }
+
         MyListsPageObject.swipeByArticleTDelete(article_second_title);
         MyListsPageObject.waitForArticleToAppearByTitle(article_title);
+
+
 
     }
 

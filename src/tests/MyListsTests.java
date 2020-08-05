@@ -49,14 +49,14 @@ public class MyListsTests extends CoreTestCase {
         MyListsPageObject MyListsPageObject = MyListsPageObjectFactory.get(driver);
 
         if (Platform.getInstance().isIOS()) {
-            MyListsPageObject.closeSynhYourSavedArticle();
+            MyListsPageObject.closeSyncYourSavedArticle();
         }
 
 
         if (Platform.getInstance().isAndroid()) {
             MyListsPageObject.openFolderByName(name_of_folder);
         }
-            MyListsPageObject.swipeByArticleTDelete(article_title);
+            MyListsPageObject.swipeByArticleToDelete(article_title);
 
 
     }
@@ -95,6 +95,7 @@ public class MyListsTests extends CoreTestCase {
         ArticlePageObject.waitForArticleDescriptionElement();
 
         String article_description = ArticlePageObject.getArticleDescription();
+        System.out.println(article_description);
 
         if (Platform.getInstance().isAndroid()) {
             ArticlePageObject.addArticleToMyExistingList(name_of_folder);
@@ -117,10 +118,10 @@ public class MyListsTests extends CoreTestCase {
             System.out.println(driver.findElements(By.xpath(article_description)));
 
         } else {
-            MyListsPageObject.closeSynhYourSavedArticle();
+            MyListsPageObject.closeSyncYourSavedArticle();
         }
 
-        MyListsPageObject.swipeByArticleTDelete(article_description);
+        MyListsPageObject.swipeByArticleToDelete(article_description);
         MyListsPageObject.waitForArticleToAppearByTitle(article_title);
 
 

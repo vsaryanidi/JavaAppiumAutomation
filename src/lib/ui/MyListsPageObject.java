@@ -57,7 +57,7 @@ abstract public class MyListsPageObject extends MainPageObject{
         );
     }
 
-    public void swipeByArticleTDelete (String article_title) {
+    public void swipeByArticleToDelete(String article_title) {
 
         String article_xpath = getSaveArticleXpathByTitle(article_title);
         this.swipeElementToLeft(
@@ -70,7 +70,7 @@ abstract public class MyListsPageObject extends MainPageObject{
         this.waitForArticleToDisappearByTitle(article_title);
     }
 
-    public void closeSynhYourSavedArticle () {
+    public void closeSyncYourSavedArticle() {
 
         this.waitForElementAndClick(CLOSE_BUTTON, "Cannot find X button", 10);
     }

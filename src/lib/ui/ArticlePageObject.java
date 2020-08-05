@@ -37,7 +37,8 @@ abstract public class ArticlePageObject extends MainPageObject{
 
     public WebElement waitForArticleDescriptionElement() {
         return this.waitForElementPresent(ARTICLE_DESCRIPTION,"Cannot find article description on page!", 15);
-    }
+
+        }
 
     public String getArticleTitle() {
         WebElement title_element = waitForTitleElement();
@@ -53,7 +54,11 @@ abstract public class ArticlePageObject extends MainPageObject{
     public String getArticleDescription() {
         WebElement article_description_element = waitForArticleDescriptionElement();
 
+        if (Platform.getInstance().isIOS()) {
         return article_description_element.getAttribute("name");
+        } else {
+            return article_description_element.getAttribute("text");
+        }
 
     }
 
